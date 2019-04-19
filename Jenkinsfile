@@ -1,6 +1,4 @@
 pipelineJob("ssl-feign-client-pipe") {
-    agent any
-
     stages {
         stage('Build') {
             def myTestContainer = docker.image("maven:3-alpine")
