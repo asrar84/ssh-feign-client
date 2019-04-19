@@ -1,18 +1,17 @@
-pipelineJob("ssl-feign-client-pipe") {
+#!groovy
+
+pipeline {
+  agent none
     stages {
-        stage('Build') {
-            def myTestContainer = docker.image("maven:3-alpine")
-            myTestContainer.pull()
-            myTestContainer.inside("-v /root/.m2:/root/.m2") {
-              sh 'mvn -B -DskipTests clean package'
-            }
+      stage('Maven Install') {
+        agent {
+          docker {
+            image 'maven:3.5.0'
+          }
         }
-        stage('Test') {
-            def myTestContainer = docker.image("maven:3-alpine")
-            myTestContainer.pull()
-            myTestContainer.inside("-v /root/.m2:/root/.m2") {
-              sh 'mvn test'
-            }
+        steps {
+          sh 'mvn clean install'
+        }
         }
     }
 }
