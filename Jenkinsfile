@@ -1,4 +1,4 @@
-pipelineJob("ssl-feign-client-pipe-iaac") {
+pipeline {
     agent any
     stages {
         stage ('Checkout') {
