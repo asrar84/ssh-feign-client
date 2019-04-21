@@ -4,13 +4,13 @@ pipeline {
       parallel {
         stage('Service1') {
           stages {
-            agent {
-              docker {
-                image 'maven:3.5-alpine'
-                args '-v /root/.m2:/root/.m2'
-              }
-            }
             stage('Build') {
+              agent {
+                docker {
+                  image 'maven:3.5-alpine'
+                  args '-v /root/.m2:/root/.m2'
+                }
+              }
               steps {
                 git(url: 'https://github.com/asrar84/ssl-feign-client.git', changelog: true, credentialsId: 'github', poll: true)
                 sh 'sh \'mvn clean package\''
@@ -33,13 +33,13 @@ pipeline {
         }
         stage('Service2') {
           stages {
-            agent {
-              docker {
-                image 'maven:3.5-alpine'
-                args '-v /root/.m2:/root/.m2'
-              }
-            }
             stage('Build') {
+              agent {
+                docker {
+                  image 'maven:3.5-alpine'
+                  args '-v /root/.m2:/root/.m2'
+                }
+              }
               steps {
                 git(url: 'https://github.com/asrar84/ssl-feign-client.git', changelog: true, credentialsId: 'github', poll: true)
                 sh 'sh \'mvn clean package\''
