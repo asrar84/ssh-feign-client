@@ -47,6 +47,7 @@ pipeline {
                 }
               }*/
               steps {
+                sleep 40
                 git(url: 'https://github.com/asrar84/ssl-feign-client.git', changelog: true, credentialsId: 'github', poll: true)
                 sh 'mvn clean package'
                 stash(name: 'build2Stash', allowEmpty: true, includes: 'target/*.jar')
