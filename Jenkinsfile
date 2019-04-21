@@ -1,22 +1,17 @@
 pipeline {
-  agent {
-    docker {
-      image 'maven:3.5-alpine'
-      args '-v /var/jenkins_home/.m2:$HOME/.m2'
-    }
-  }
+  agent any
   stages {
     stage('Build Test & DeployImage') {
       parallel {
         stage('Service1') {
           stages {
             stage('Build') {
-              /*agent {
+              agent {
                 docker {
                   image 'maven:3.5-alpine'
                   args '-v /root/.m2:/root/.m2'
                 }
-              }*/
+              }
               steps {
                 git(url: 'https://github.com/asrar84/ssl-feign-client.git', changelog: true, credentialsId: 'github', poll: true)
                 sh 'mvn clean package'
@@ -40,12 +35,12 @@ pipeline {
         stage('Service2') {
           stages {
             stage('Build') {
-              /*agent {
+              agent {
                 docker {
                   image 'maven:3.5-alpine'
                   args '-v /root/.m2:/root/.m2'
                 }
-              }*/
+              }
               steps {
                 sleep 40
                 git(url: 'https://github.com/asrar84/ssl-feign-client.git', changelog: true, credentialsId: 'github', poll: true)
